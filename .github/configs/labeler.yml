@@ -1,0 +1,3 @@
+package:PackageA:
+  - changed-files:
+      - any-glob-to-any-file: shared/package_a/**
