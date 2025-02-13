@@ -1,3 +1,7 @@
+project:ProjectA:
+  - changed-files:
+      - any-glob-to-any-file: projects/project_a/**
+
 package:PackageA:
   - changed-files:
       - any-glob-to-any-file: shared/package_a/**
