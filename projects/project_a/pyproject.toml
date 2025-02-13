@@ -10,3 +10,8 @@ dependencies = [
 
 [tool.uv.sources]
 package-a = { git = "https://github.com/shuhei-suzuki-27/monorepo-example", subdirectory = "shared/package_a", branch = "main" }
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.6",
+]
