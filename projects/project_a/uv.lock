@@ -1,0 +1,18 @@
+version = 1
+requires-python = ">=3.11"
+
+[[package]]
+name = "package-a"
+version = "0.1.0"
+source = { git = "https://github.com/shuhei-suzuki-27/monorepo-example?subdirectory=shared%2Fpackage_a&branch=main#4fdf6cc7c36d2c384c2d04703d489d5fdb179c78" }
+
+[[package]]
+name = "project-a"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "package-a" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "package-a", git = "https://github.com/shuhei-suzuki-27/monorepo-example?subdirectory=shared%2Fpackage_a&branch=main" }]
