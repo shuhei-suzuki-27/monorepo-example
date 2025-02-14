@@ -1,3 +1,7 @@
+project:Base:
+  - changed-files:
+      - any-glob-to-any-file: projects/base/**
+
 project:ProjectA:
   - changed-files:
       - any-glob-to-any-file: projects/project_a/**
