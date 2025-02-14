@@ -1,0 +1,73 @@
+version: '3'
+
+tasks:
+  terraform:init:
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - |
+        terraform init \
+          -reconfigure \
+          -backend-config=environments/{{.STAGE}}/backend.hcl \
+          {{.CLI_ARGS}}
+    requires:
+      vars:
+        - name: STAGE
+          enum:
+            - dev
+            - stg
+            - prod
+    aliases:
+      - tf:init
+
+  terraform:fmt:
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - terraform fmt -recursive
+    aliases:
+      - tf:fmt
+
+  terraform:validate:
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - terraform validate
+    aliases:
+      - tf:validate
+
+  terraform:plan:
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - |
+        terraform plan \
+          -var-file="terraform.tfvars" \
+          -var-file="environments/{{.STAGE}}/terraform.tfvars" \
+          {{.CLI_ARGS}}
+    aliases:
+      - tf:plan
+
+  terraform:apply:
+    prompt: |
+      Execute the terraform apply command for the {{.STAGE}} environment.
+      Do you want to proceed?
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - |
+        terraform apply \
+          -var-file="terraform.tfvars" \
+          -var-file="environments/{{.STAGE}}/terraform.tfvars" \
+          {{.CLI_ARGS}}
+    aliases:
+      - tf:apply
+
+  terraform:destroy:
+    prompt: |
+      Execute the terraform destroy command for the {{.STAGE}} environment.
+      Do you want to proceed?
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - |
+        terraform destroy \
+          -var-file="terraform.tfvars" \
+          -var-file="environments/{{.STAGE}}/terraform.tfvars" \
+          {{.CLI_ARGS}}
+    aliases:
+      - tf:destroy
