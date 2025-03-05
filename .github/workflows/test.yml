@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Deploy templates
+        run: |
+          filenames=$(git diff --name-only origin/main...HEAD | tr "\n" " ")
+          for filename in ${filenames[@]}; do
+            echo $filename
+          done
